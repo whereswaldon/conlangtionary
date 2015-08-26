@@ -7,4 +7,15 @@ and open the template in the editor.
     Created on : Aug 25, 2015, 10:01:34 AM
     Author     : christopherwaldon
 */
+.site-subtitle {
+	color: gray;
+}
 
+.main-nav {
+	margin-top:1em;
+	text-align: right;
+}
+
+.main-nav ul {
+	list-style: none;
+}

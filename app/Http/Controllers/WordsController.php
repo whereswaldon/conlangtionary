@@ -21,7 +21,7 @@ class WordsController extends Controller
     public function index()
     {
 	    $languages = Language::orderBy('name')->get();
-	    $words = Word::orderBy('ascii_string')->get();
+	    $words = Word::orderBy('language_id')->orderBy('ascii_string')->get();
 	    return view('words.index', compact('words', 'languages'));
     }
 

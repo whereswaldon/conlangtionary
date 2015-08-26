@@ -25,9 +25,9 @@ Route::resource('languages', 'LanguagesController');
 Route::resource('words', 'WordsController');
 
 Route::get('/', function () {
-    return view('languages');
+    return redirect('languages');
 });
 
 Route::get('/home', function () {
-    return view('languages');
+    return redirect('languages');
 });
