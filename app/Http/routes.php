@@ -22,11 +22,12 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 Route::resource('languages', 'LanguagesController');
+Route::resource('words', 'WordsController');
 
 Route::get('/', function () {
-    return view('layouts.home');
+    return view('languages');
 });
 
 Route::get('/home', function () {
-    return view('layouts.home');
+    return view('languages');
 });

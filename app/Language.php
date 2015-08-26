@@ -11,4 +11,8 @@ class Language extends Model
 	];   //
 
 	protected $table = 'languages';
+
+	public function words() {
+		return $this->hasMany('App\Word');
+	}
 }
