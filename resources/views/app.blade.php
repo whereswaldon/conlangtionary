@@ -27,6 +27,13 @@
     @yield('header-styles')
   </head>
   <body>
+      <div class='container'>
+	  <div class='row'>
+	      <div class='col-lg-6'>
+		  <h1>Conlangtionary<sub style='color: gray;'>alpha</sub></h1>
+	      </div>
+	  </div>
+      </div>
     @yield('content')
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

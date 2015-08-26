@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Language;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class LanguagesController extends Controller
 {
+	public function __construct() {
+		$this->middleware('auth', ['except' => ['index', 'show']]);
+	}
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,8 @@ class LanguagesController extends Controller
      */
     public function index()
     {
-        //
+	    $languages = Language::orderBy('name')->get();
+	    return view('languages.index', compact('languages'));
     }
 
     /**
@@ -27,6 +32,7 @@ class LanguagesController extends Controller
     public function create()
     {
         //
+	    return view('languages.create');
     }
 
     /**
@@ -37,7 +43,10 @@ class LanguagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+	   $data = $request->all();
+	   $newLang = Language::create($data);
+
+	   return redirect('languages');
     }
 
     /**
@@ -48,7 +57,8 @@ class LanguagesController extends Controller
      */
     public function show($id)
     {
-        //
+	    $language = Language::where('id', $id)->firstOrFail();
+	    return view('languages.show', compact('language'));
     }
 
     /**
@@ -59,7 +69,8 @@ class LanguagesController extends Controller
      */
     public function edit($id)
     {
-        //
+	    $language = Language::where('id', $id)->firstOrFail();
+	    return view('languages.edit', compact('language'));
     }
 
     /**
@@ -71,7 +82,11 @@ class LanguagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+	    $data = $request->all();
+	    $language = Language::where('id', $id)->firstOrFail();
+	    $language->update($data);
+
+	    return redirect('languages');
     }
 
     /**
@@ -82,6 +97,9 @@ class LanguagesController extends Controller
      */
     public function destroy($id)
     {
-        //
+	    $language = Language::where('id', $id)->firstOrFail();
+	    $language->delete();
+
+	    return redirect('languages');
     }
 }

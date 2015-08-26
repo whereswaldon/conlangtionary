@@ -21,6 +21,8 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+Route::resource('languages', 'LanguagesController');
+
 Route::get('/', function () {
     return view('layouts.home');
 });

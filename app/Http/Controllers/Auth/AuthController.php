@@ -20,6 +20,11 @@ class AuthController extends Controller
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     */
+	/**
+	 * The path users are taken to upon authentication.
+	 * @var type string
+	 */
+	protected $redirectPath = '/languages';
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
