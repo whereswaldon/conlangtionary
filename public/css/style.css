@@ -11,6 +11,10 @@ and open the template in the editor.
 	color: gray;
 }
 
+.undefined-warning {
+    color: gray;
+}
+
 .main-nav {
 	margin-top:1em;
 	text-align: right;

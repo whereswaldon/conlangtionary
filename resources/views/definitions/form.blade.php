@@ -1,18 +1,22 @@
 <div class='form-group'>
-	<label for='ascii_string'>Word</label>
-	<input class='form-control' type="text" name="ascii_string" value="{{ $word->ascii_string or "" }}">
+    <label for='word_id'>Definition for Word</label>
+    <select class='form-control' type='select' name='word_id'>
+        @forelse($words as $word)
+            @if(isset($definition->word_id) && $definition->word_id == $word->id)
+                <option name='{{$word->ascii_string}}' value='{{$word->id}}' selected>{{$word->ascii_string}}&nbsp;-&nbsp;{{$word->language->name}}</option>
+            @else
+                <option name='{{$word->ascii_string}}' value='{{$word->id}}'>{{$word->ascii_string}}&nbsp;-&nbsp;{{$word->language->name}}</option>
+            @endif
+        @empty
+            <option name='' value=''>You need to add words before definitions</option>
+        @endforelse
+    </select>
 </div>
 <div class='form-group'>
-    <label for='language_id'>Language</label>
-    <select class='form-control' type='select' name='language_id'>
-	    @forelse($languages as $language)
-	    @if(isset($word->language_id) && $word->language_id == $language->id)
-	    <option name='{{$language->name}}' value='{{$language->id}}' selected>{{$language->name}}</option>
-	    @else
-	    <option name='{{$language->name}}' value='{{$language->id}}'>{{$language->name}}</option>
-	    @endif
-	    @empty
-	    <option name='' value=''>You need to add languages before words</option>
-	    @endforelse
-    </select>
+	<label for='definition_number'>Definition Number</label>
+	<input class='form-control' type="number" name="definition_number" value="{{ $definition->definition_number or 1 }}">
+</div>
+<div class='form-group'>
+    <label for='definition_text'>Definition Text</label>
+    <input class='form-control' type="text" name="definition_text" value="{{ $definition->definition_text or "" }}">
 </div>

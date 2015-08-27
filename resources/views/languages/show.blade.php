@@ -20,7 +20,18 @@
                     @else
                     <ul>
                         @foreach($language->words as $word)
-                            <li>{{ $word->ascii_string }}</li>
+                            <li>{{ $word->ascii_string }}
+                            @if( count($word->definitions) > 0)
+                                <ol>
+                                    @foreach($word->definitions->sortBy('definition_number') as $definition)
+                                        <li>{{ $definition->definition_text }}</li>
+                                    @endforeach
+                                </ol>
+
+                                @else
+                                <ul><li><span class="undefined-warning">This word has not been defined.</span></li></ul>
+                            @endif
+                            </li>
                         @endforeach
                     </ul>
                 @endif

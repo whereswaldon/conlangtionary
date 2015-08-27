@@ -16,4 +16,8 @@ class Word extends Model
 	public function language() {
 		return $this->belongsTo('App\Language');
 	}
+
+    public function definitions() {
+        return $this->hasMany('App\Definition');
+    }
 }

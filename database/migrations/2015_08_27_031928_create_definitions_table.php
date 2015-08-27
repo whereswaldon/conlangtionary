@@ -12,7 +12,14 @@ class CreateDefinitionsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('definitions', function($table) {
+            $table->increments('id');
+            $table->integer('definition_number')->unsigned();
+            $table->string('definition_text');
+            $table->integer('word_id')->unsigned();
+            $table->foreign('word_id')->references('id')->on('words');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +29,6 @@ class CreateDefinitionsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('definitions');
     }
 }

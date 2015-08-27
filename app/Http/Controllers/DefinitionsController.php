@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Definition;
+use App\Word;
+use App\Language;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -9,6 +11,9 @@ use App\Http\Controllers\Controller;
 
 class DefinitionsController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +21,8 @@ class DefinitionsController extends Controller
      */
     public function index()
     {
-        //
+        $definitions = Definition::orderBy('word_id')->orderBy('definition_number')->get();
+        return view('definitions.index', compact('definitions'));
     }
 
     /**
@@ -27,6 +33,8 @@ class DefinitionsController extends Controller
     public function create()
     {
         //
+        $words = Word::orderBy('language_id')->orderBy('ascii_string')->get();
+        return view('definitions.create', compact('languages', 'words'));
     }
 
     /**
@@ -37,7 +45,10 @@ class DefinitionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $newDef= Definition::create($data);
+
+        return redirect('definitions');
     }
 
     /**
@@ -48,7 +59,8 @@ class DefinitionsController extends Controller
      */
     public function show($id)
     {
-        //
+        $def = Definition::where('id', $id)->firstOrFail();
+        return view('definition.show', compact('def'));
     }
 
     /**
@@ -59,7 +71,9 @@ class DefinitionsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $definition = Definition::where('id', $id)->firstOrFail();
+        $words = Word::orderBy('language_id')->orderBy('ascii_string')->get();
+        return view('definitions.edit', compact('definition', 'words'));
     }
 
     /**
@@ -71,7 +85,11 @@ class DefinitionsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $def = Definition::where('id', $id)->firstOrFail();
+        $def->update($data);
+
+        return redirect('definitions');
     }
 
     /**
@@ -82,6 +100,9 @@ class DefinitionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $def = Definition::where('id', $id)->firstOrFail();
+        $def->delete();
+
+        return redirect('definitions');
     }
 }
