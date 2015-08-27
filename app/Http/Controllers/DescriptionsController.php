@@ -1,21 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Description;
+use App\Language;
 use Illuminate\Http\Request;
 
-use App\Language;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class LanguagesController extends Controller
+class DescriptionsController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
-
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +21,8 @@ class LanguagesController extends Controller
     public function index()
     {
         $languages = Language::orderBy('name')->get();
-        return view('languages.index', compact('languages'));
+        $descriptions = Description::orderBy('language_id')->get();
+        return view('descriptions.index', compact('descriptions', 'languages'));
     }
 
     /**
@@ -35,74 +33,76 @@ class LanguagesController extends Controller
     public function create()
     {
         //
-        return view('languages.create');
+        $languages = Language::orderBy('name')->get();
+        return view('descriptions.create', compact('languages'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function store(Request $request)
     {
         $data = $request->all();
-        $newLang = Language::create($data);
-        Description::create(['desciption' => "I'm a new language!", 'language_id' => $newLang->id]);
-        return redirect('languages');
+        $description = Description::create($data);
+
+        return redirect('descriptions');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return Response
      */
     public function show($id)
     {
-        $language = Language::where('id', $id)->firstOrFail();
-        return view('languages.show', compact('language'));
+        $description = Description::where('id', $id)->firstOrFail();
+        return view('descriptions.show', compact('description'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return Response
      */
     public function edit($id)
     {
-        $language = Language::where('id', $id)->firstOrFail();
-        return view('languages.edit', compact('language'));
+        $languages = Language::orderBy('name')->get();
+        $description = Description::where('id', $id)->firstOrFail();
+        return view('descriptions.edit', compact('description', 'languages'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request $request
-     * @param  int $id
+     * @param  Request  $request
+     * @param  int  $id
      * @return Response
      */
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        $language = Language::where('id', $id)->firstOrFail();
-        $language->update($data);
+        $description = Description::where('id', $id)->firstOrFail();
+        $description->update($data);
 
-        return redirect('languages');
+        return redirect('descriptions');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return Response
      */
     public function destroy($id)
     {
-        $language = Language::where('id', $id)->firstOrFail();
-        $language->delete();
+        $description = Description::where('id', $id)->firstOrFail();
+        $description->delete();
 
-        return redirect('languages');
+        return redirect('descriptions');
     }
 }

@@ -23,6 +23,7 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 Route::resource('languages', 'LanguagesController');
 Route::resource('words', 'WordsController');
+Route::resource('descriptions', 'DescriptionsController');
 
 Route::get('/', function () {
     return redirect('languages');

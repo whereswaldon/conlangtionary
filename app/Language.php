@@ -15,4 +15,8 @@ class Language extends Model
 	public function words() {
 		return $this->hasMany('App\Word');
 	}
+
+    public function description() {
+        return $this->hasOne('App\Description');
+    }
 }
