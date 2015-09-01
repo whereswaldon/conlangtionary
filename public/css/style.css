@@ -23,3 +23,7 @@ and open the template in the editor.
 .main-nav ul {
 	list-style: none;
 }
+
+#top-search-bar {
+    margin-top: 2em;
+}

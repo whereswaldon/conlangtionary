@@ -22,6 +22,7 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 Route::resource('languages', 'LanguagesController');
+Route::post('languages/search', 'LanguagesController@search');
 Route::resource('words', 'WordsController');
 Route::resource('descriptions', 'DescriptionsController');
 Route::resource('definitions', 'DefinitionsController');

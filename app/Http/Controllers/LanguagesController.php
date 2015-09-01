@@ -16,6 +16,15 @@ class LanguagesController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
+    public function search(Request $request) {
+        $data = $request->all();
+        $language = Language::where('id', $data['language_id'])->firstOrFail();
+        $results = Language::where('languages.id', $data['language_id'])
+            ->search($data['search-term'])
+            ->with('words')
+            ->get();
+        return view('search.results', compact('results', 'language'));
+    }
     /**
      * Display a listing of the resource.
      *
