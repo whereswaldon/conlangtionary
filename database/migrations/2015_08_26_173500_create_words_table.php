@@ -28,6 +28,6 @@ class CreateWordsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('languages');
+        Schema::drop('words');
     }
 }
