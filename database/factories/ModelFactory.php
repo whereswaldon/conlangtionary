@@ -23,6 +23,7 @@ $factory->define(App\Language::class, function ($faker) {
     return [
         'name' => $faker->word,
         'notes' => $faker->sentence,
+        'short_description' => $faker->sentence,
     ];
 });
 $factory->define(App\Word::class, function ($faker) {

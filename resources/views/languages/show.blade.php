@@ -5,6 +5,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h2>{{ $language->name }}</h2>
+                <p>{{ $language->short_description }}</p>
             </div>
         </div>
         <div class="row">
@@ -35,6 +36,7 @@
                         @endforeach
                     </ul>
                 @endif
+                <p><em>Notes:</em> {{ $language->notes }}</p>
             </div>
         </div>
     </div>

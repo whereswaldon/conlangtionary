@@ -59,8 +59,8 @@ class DefinitionsController extends Controller
      */
     public function show($id)
     {
-        $def = Definition::where('id', $id)->firstOrFail();
-        return view('definition.show', compact('def'));
+        $definition = Definition::where('id', $id)->firstOrFail();
+        return view('definitions.show', compact('definition'));
     }
 
     /**

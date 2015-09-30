@@ -14,6 +14,7 @@
                     @else
                     <p>This word has no definitions.</p>
                 @endif
+                <p><em>Notes:</em> {{ $word->notes }}</p>
             </div>
         </div>
     </div>
