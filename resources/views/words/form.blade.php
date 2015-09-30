@@ -16,3 +16,7 @@
 	    @endforelse
     </select>
 </div>
+<div class='form-group'>
+    <label for='notes'>Notes</label>
+    <textarea class='form-control' type="text" name="notes">{{ $word->notes or ""}}</textarea>
+</div>

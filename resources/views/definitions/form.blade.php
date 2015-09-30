@@ -20,3 +20,7 @@
     <label for='definition_text'>Definition Text</label>
     <input class='form-control' type="text" name="definition_text" value="{{ $definition->definition_text or "" }}">
 </div>
+<div class='form-group'>
+    <label for='notes'>Notes</label>
+    <textarea class='form-control' type="text" name="notes">{{ $definition->notes or ""}}</textarea>
+</div>

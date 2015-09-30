@@ -15,9 +15,10 @@ class CreateDefinitionsTable extends Migration
         Schema::create('definitions', function($table) {
             $table->increments('id');
             $table->integer('definition_number')->unsigned();
-            $table->string('definition_text');
+            $table->text('definition_text');
             $table->integer('word_id')->unsigned();
             $table->foreign('word_id')->references('id')->on('words');
+            $table->text('notes')->default('');
             $table->timestamps();
         });
     }

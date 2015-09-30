@@ -9,6 +9,7 @@ class Word extends Model
 	protected $fillable = [
 	    'ascii_string',
 	    'language_id',
+        'notes',
 	];
 
 	protected $table = 'words';

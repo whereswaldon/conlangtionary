@@ -22,7 +22,8 @@ class Language extends Model
     ];
 
  	protected $fillable = [
-	  'name'  
+        'name',
+        'notes',
 	];   //
 
 	protected $table = 'languages';

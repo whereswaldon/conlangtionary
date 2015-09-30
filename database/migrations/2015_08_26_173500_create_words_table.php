@@ -14,9 +14,10 @@ class CreateWordsTable extends Migration
     {
         Schema::create('words', function ($table) {
 		$table->increments('id');
-		$table->string('ascii_string');
+		$table->text('ascii_string');
 		$table->integer('language_id')->unsigned();
 		$table->foreign('language_id')->references('id')->on('languages');
+        $table->text('notes')->default('');
 		$table->timestamps();
 	});
     }

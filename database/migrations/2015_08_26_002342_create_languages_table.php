@@ -15,6 +15,7 @@ class CreateLanguagesTable extends Migration
         Schema::create('languages', function ($table) {
 		$table->increments('id');
 		$table->string('name');
+        $table->text('notes')->default('');
 		$table->timestamps();
 	});
     }

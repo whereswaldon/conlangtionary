@@ -22,21 +22,24 @@ $factory->define(App\User::class, function ($faker) {
 $factory->define(App\Language::class, function ($faker) {
     return [
         'name' => $faker->word,
+        'notes' => $faker->sentence,
     ];
 });
 $factory->define(App\Word::class, function ($faker) {
     return [
         'ascii_string' => $faker->word,
+        'notes' => $faker->sentence,
     ];
 });
 $factory->define(App\Definition::class, function ($faker) {
     return [
         'definition_number' => rand(0,100),
         'definition_text' => $faker->sentence,
+        'notes' => $faker->sentence,
     ];
 });
 $factory->define(App\Description::class, function ($faker) {
     return [
-        'description' => $faker->paragraph,
+        'description' => implode('\n\n', $faker->paragraphs(5)),
     ];
 });

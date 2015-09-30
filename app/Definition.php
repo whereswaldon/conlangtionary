@@ -10,6 +10,7 @@ class Definition extends Model
         'definition_number',
         'definition_text',
         'word_id',
+        'notes',
     ];
 
     protected $table = 'definitions';
