@@ -13,7 +13,6 @@ class DeploymentSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(LatinSeeder::class);
         $this->call(FakeLanguageSeeder::class);
 
         Model::reguard();
