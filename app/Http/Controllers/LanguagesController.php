@@ -57,7 +57,7 @@ class LanguagesController extends Controller
     {
         $data = $request->all();
         $newLang = Language::create($data);
-        Description::create(['desciption' => "I'm a new language!", 'language_id' => $newLang->id]);
+        Description::create(['description' => "I'm a new language!", 'language_id' => $newLang->id]);
         return redirect('languages');
     }
 
