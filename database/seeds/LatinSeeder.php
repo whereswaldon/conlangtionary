@@ -12,7 +12,8 @@ class LatinSeeder extends Seeder
     public function run()
     {
         DB::table('languages')->insert([
-            'name' => 'Latin'
+            'name' => 'Latin',
+            'short_description' => 'A test language. Incomplete.',
         ]);
         $latin = \App\Language::where('name', 'Latin')->firstOrFail();
         DB::table('words')->insert([

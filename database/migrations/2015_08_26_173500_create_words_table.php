@@ -18,7 +18,7 @@ class CreateWordsTable extends Migration
 		$table->integer('language_id')->unsigned();
 		$table->foreign('language_id')->references('id')->on('languages');
         $table->text('notes')->default('');
-		$table->timestamps();
+		$table->nullableTimestamps();
 	});
     }
 

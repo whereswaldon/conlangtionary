@@ -19,7 +19,7 @@ class CreateDefinitionsTable extends Migration
             $table->integer('word_id')->unsigned();
             $table->foreign('word_id')->references('id')->on('words');
             $table->text('notes')->default('');
-            $table->timestamps();
+            $table->nullableTimestamps();
         });
     }
 
