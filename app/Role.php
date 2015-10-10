@@ -6,7 +6,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    /**
+     * The Role model fields that can be updated from the front end.
+     * Deliberately empty.
+     * @var array
+     */
     protected $fillable = [];
 
+    /**
+     * Specifies the name of the database table for this model.
+     * @var string
+     */
     protected $table = 'roles';
+
+    /**
+     * Fetches the users with this role.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users() {
+        return $this->hasMany('App\User');
+    }
 }
