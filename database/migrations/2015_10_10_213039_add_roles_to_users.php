@@ -14,7 +14,7 @@ class AddRolesToUsers extends Migration
     public function up()
     {
         Schema::table('users', function($table) {
-            $table->integer('role_id')->unsigned()->default(Role::where('name', 'User')->first()->id);
+            $table->integer('role_id')->unsigned()->default(1);
             $table->foreign('role_id')->references('id')->on('roles');
         });
     }
