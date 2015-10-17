@@ -42,4 +42,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function role() {
         return $this->belongsTo('App\Role');
     }
+
+    /**
+     * Check whether this user has administrator priviledges
+     * @return bool
+     */
+    public function isAdmin() {
+        return $this->role->name == 'Administrator';
+    }
 }
