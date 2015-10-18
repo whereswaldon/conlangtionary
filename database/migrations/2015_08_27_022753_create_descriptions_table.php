@@ -18,6 +18,7 @@ class CreateDescriptionsTable extends Migration
             $table->foreign('language_id')->references('id')->on('languages');
             $table->longText('description');
             $table->nullableTimestamps();
+            $table->softDeletes();
         });
     }
 

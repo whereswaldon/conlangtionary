@@ -18,6 +18,7 @@ class CreateLanguagesTable extends Migration
         $table->string('short_description');
         $table->text('notes')->default('');
 		$table->nullableTimestamps();
+        $table->softDeletes();
 	});
     }
 

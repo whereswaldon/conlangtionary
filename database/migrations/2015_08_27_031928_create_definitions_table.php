@@ -20,6 +20,7 @@ class CreateDefinitionsTable extends Migration
             $table->foreign('word_id')->references('id')->on('words');
             $table->text('notes')->default('');
             $table->nullableTimestamps();
+            $table->softDeletes();
         });
     }
 
