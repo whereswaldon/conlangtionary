@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Language extends Model
 {
-    use SearchableTrait;
+    use SearchableTrait, SoftDeletes;
 
     protected $searchable = [
         'columns' => [

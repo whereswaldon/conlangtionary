@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
+    use SoftDeletes;
     /**
      * The Role model fields that can be updated from the front end.
      * Deliberately empty.
