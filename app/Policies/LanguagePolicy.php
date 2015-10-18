@@ -32,6 +32,7 @@ class LanguagePolicy
     /**
      * Check whether the authenticated user can view the languages index.
      *
+     * @return bool
      */
     public function index(User $user)
     {
@@ -40,9 +41,9 @@ class LanguagePolicy
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Check whether the authenticated user can create a new language.
      *
-     * @return Response
+     * @return bool
      */
     public function create(User $user)
     {
@@ -51,10 +52,9 @@ class LanguagePolicy
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Check whether the authenticated user can save a new language
      *
-     * @param  Request $request
-     * @return Response
+     * @return bool
      */
     public function store(User $user)
     {
@@ -63,10 +63,9 @@ class LanguagePolicy
     }
 
     /**
-     * Display the specified resource.
+     * Check whether the authenticated user can view a language.
      *
-     * @param  int $id
-     * @return Response
+     * @return bool
      */
     public function show(User $user, Language $language)
     {
@@ -75,10 +74,9 @@ class LanguagePolicy
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Check whether the authenticated user can edit a Language.
      *
-     * @param  int $id
-     * @return Response
+     * @return bool
      */
     public function edit(User $user, Language $language)
     {
@@ -87,11 +85,9 @@ class LanguagePolicy
     }
 
     /**
-     * Update the specified resource in storage.
+     * Check whether the authenticaed user can update a language.
      *
-     * @param  Request $request
-     * @param  int $id
-     * @return Response
+     * @return bool
      */
     public function update(User $user, Language $language)
     {
@@ -100,10 +96,9 @@ class LanguagePolicy
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Check whether the authenticated user can delete a language.
      *
-     * @param  int $id
-     * @return Response
+     * @return bool
      */
     public function destroy(User $user, Language $language)
     {
