@@ -13,10 +13,6 @@
     </select>
 </div>
 <div class='form-group'>
-	<label for='definition_number'>Definition Number</label>
-	<input class='form-control' type="number" name="definition_number" value="{{ $definition->definition_number or 1 }}">
-</div>
-<div class='form-group'>
     <label for='definition_text'>Definition Text</label>
     <input class='form-control' type="text" name="definition_text" value="{{ $definition->definition_text or "" }}">
 </div>

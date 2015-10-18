@@ -38,10 +38,10 @@ class DefinitionsController extends Controller
      */
     public function create()
     {
-        if (Gate::denies('create')) {
-            Flash::error('You do not have permission to create a new definition for this word.');
-            return redirect()->back();
-        }
+//        if (Gate::denies('create')) {
+//            Flash::error('You do not have permission to create a new definition.');
+//            return redirect()->back();
+//        }
         $words = Word::orderBy('language_id')->orderBy('ascii_string')->get();
         return view('definitions.create', compact('languages', 'words'));
     }

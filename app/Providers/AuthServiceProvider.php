@@ -4,6 +4,14 @@ namespace App\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Language;
+use App\Policies\LanguagePolicy;
+use App\Description;
+use App\Policies\DescriptionPolicy;
+use App\Definition;
+use App\Policies\DefinitionPolicy;
+use App\Word;
+use App\Policies\WordPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,11 +21,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
-        'App\Language' => 'App\Policies\LanguagePolicy',
-        'App\Word' => 'App\Policies\WordPolicy',
-        'App\Description' => 'App\Policies\DescriptionPolicy',
-        'App\Definition' => 'App\Policies\DefinitionPolicy',
+        Language::class => LanguagePolicy::class,
+        Word::class => WordPolicy::class,
+        Description::class => DescriptionPolicy::class,
+        Definition::class => DefinitionPolicy::class,
     ];
 
     /**
@@ -28,12 +35,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate)
     {
+        parent::registerPolicies($gate);
+
         $gate->before(function ($user, $ability) {
             if ($user->isAdmin()) {
                 return true;
             }
         });
-        parent::registerPolicies($gate);
 
         //
     }

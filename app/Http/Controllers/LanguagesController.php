@@ -48,10 +48,10 @@ class LanguagesController extends Controller
      */
     public function create()
     {
-        if (Gate::denies('create')) {
-            Flash::error('You do not have permission to create languages.');
-            return redirect()->back();
-        }
+//        if (Gate::denies('create')) {
+//            Flash::error('You do not have permission to create languages.');
+//            return redirect()->back();
+//        }
         //
         return view('languages.create');
     }

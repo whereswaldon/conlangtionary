@@ -6,3 +6,4 @@ Homestead.yaml
 Vagrantfile
 .vagrant
 _ide_helper.php
+/nbproject

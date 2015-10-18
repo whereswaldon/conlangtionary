@@ -18,7 +18,7 @@
 
     <div class='form-group'>
         <label for='remember'>Remember Me:</label>
-        <input  class='form-control' type="checkbox" name="remember"> 
+        <input  class='' type="checkbox" name="remember">
     </div>
 
     <div class='form-group'>

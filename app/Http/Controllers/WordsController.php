@@ -40,10 +40,10 @@ class WordsController extends Controller
      */
     public function create()
     {
-        if (Gate::denies('create')) {
-            Flash::error('You do not have permission to create a new word in this language.');
-            return redirect()->back();
-        }
+//        if (Gate::denies('create')) {
+//            Flash::error('You do not have permission to create a new word in this language.');
+//            return redirect()->back();
+//        }
         $languages = Language::orderBy('name')->get();
         return view('words.create', compact('languages'));
     }
