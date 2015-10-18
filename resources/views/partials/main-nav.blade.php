@@ -14,7 +14,7 @@
         </li>
 	    @if(Auth::check())
 	    <li>
-		<a href='/auth/logout' alt='Logout'>Log Out</a>
+		<a href='/auth/logout' alt='Logout'>Log Out ({{Auth::user()->name}})</a>
 	    </li>
 	    @else
 	    <li>

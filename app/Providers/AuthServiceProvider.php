@@ -14,6 +14,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Language' => 'App\Policies\LanguagePolicy',
+        'App\Word' => 'App\Policies\WordPolicy',
+        'App\Description' => 'App\Policies\DescriptionPolicy',
+        'App\Definition' => 'App\Policies\DefinitionPolicy',
     ];
 
     /**
@@ -24,6 +28,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate)
     {
+        $gate->before(function ($user, $ability) {
+            if ($user->isAdmin()) {
+                return true;
+            }
+        });
         parent::registerPolicies($gate);
 
         //

@@ -28,17 +28,18 @@
   </head>
   <body>
       <div class='container'>
-	  <div class='row'>
-	      <div class='col-lg-4'>
-		  <h1 class='site-name'>Conlangtionary<sub class='site-subtitle' >alpha</sub></h1>
-	      </div>
-          <div class="col-lg-4">
-              @include('partials.search-bar')
+          <div class='row'>
+              <div class='col-lg-4'>
+              <h1 class='site-name'>Conlangtionary<sub class='site-subtitle' >alpha</sub></h1>
+              </div>
+              <div class="col-lg-4">
+                  @include('partials.search-bar')
+              </div>
+              <div class='col-lg-4'>
+                  @include('partials.main-nav')
+              </div>
           </div>
-	      <div class='col-lg-4'>
-		      @include('partials.main-nav')
-	      </div>
-	  </div>
+          @include('partials.flash')
       </div>
     @yield('content')
 
