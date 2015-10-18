@@ -139,6 +139,14 @@ class LanguagesController extends Controller
             Flash::error('You do not have permission to delete this language.');
             return redirect()->back();
         }
+        $words = $language->words;
+        foreach ($words as $word) {
+            foreach ($word->definitions as $definition) {
+                $definition->delete();
+            }
+            $word->delete();
+        }
+        $language->description->delete();
         $language->delete();
 
         return redirect('languages');

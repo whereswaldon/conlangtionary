@@ -132,6 +132,9 @@ class WordsController extends Controller
             Flash::error('You do not have permission to delete this word.');
             return redirect()->back();
         }
+        foreach($word->definitions as $definition) {
+            $definition->delete();
+        }
         $word->delete();
 
         return redirect('words');
