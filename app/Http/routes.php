@@ -28,9 +28,11 @@ Route::resource('descriptions', 'DescriptionsController');
 Route::resource('definitions', 'DefinitionsController');
 
 Route::get('/', function () {
-    return redirect('languages');
+    $languages = \App\Language::all();
+    return view('pages.home', compact('languages'));
 });
 
 Route::get('/home', function () {
-    return redirect('languages');
+    $languages = \App\Language::all();
+    return view('pages.home', compact('languages'));
 });

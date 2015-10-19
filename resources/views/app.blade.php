@@ -30,7 +30,7 @@
       <div class='container'>
           <div class='row'>
               <div class='col-lg-4'>
-              <h1 class='site-name'>Conlangtionary<sub class='site-subtitle' >alpha</sub></h1>
+              <a href="/" alt="Home"><h1 class='site-name'>Conlangtionary<sub class='site-subtitle' >alpha</sub></h1></a>
               </div>
               <div class="col-lg-4">
                   @include('partials.search-bar')
