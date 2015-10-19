@@ -3,7 +3,7 @@
 @section('main-content')
 <div class='container'>
     <div class='row'>
-	<div class='col-lg-12'>
+	<div class='col-lg-11'>
 	    <h2>Languages</h2>
 	    <a role='button' class='btn  btn-success' href='/languages/create'>Create Language</a>
 		@if(count($languages) > 0)

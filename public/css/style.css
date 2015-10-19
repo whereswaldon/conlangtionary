@@ -27,3 +27,29 @@ and open the template in the editor.
 #top-search-bar {
     margin-top: 2em;
 }
+
+.subtle {
+    text-align: right;
+    opacity: 0;
+}
+
+*:hover > .subtle {
+    opacity: .75;
+}
+
+*:hover + .subtle {
+    opacity: .75;
+}
+
+.subtle:hover {
+    opacity: 1.0;
+}
+
+li .subtle {
+    padding-left: 2em;
+}
+
+.subtle a {
+    color: gray;
+}
+
