@@ -30,7 +30,7 @@ and open the template in the editor.
 
 .subtle {
     text-align: right;
-    opacity: 0;
+    opacity: 5;
 }
 
 *:hover > .subtle {

@@ -40,10 +40,10 @@ class WordsController extends Controller
      */
     public function create()
     {
-//        if (Gate::denies('create')) {
-//            Flash::error('You do not have permission to create a new word in this language.');
-//            return redirect()->back();
-//        }
+        if (Gate::denies('create', new Word())) {
+            Flash::error('You do not have permission to create a new word in this language.');
+            return redirect()->back();
+        }
         $languages = Language::orderBy('name')->get();
         return view('words.create', compact('languages'));
     }
@@ -67,7 +67,7 @@ class WordsController extends Controller
      */
     public function store(Request $request)
     {
-        if (Gate::denies('create')) {
+        if (Gate::denies('store', new Word())) {
             Flash::error('You do not have permission to save a new word in this language.');
             return redirect()->back();
         }
@@ -142,6 +142,9 @@ class WordsController extends Controller
         if (Gate::denies('destroy', $word)) {
             Flash::error('You do not have permission to delete this word.');
             return redirect()->back();
+        }
+        foreach($word->definitions as $definition) {
+            $definition->delete();
         }
         $word->delete();
 

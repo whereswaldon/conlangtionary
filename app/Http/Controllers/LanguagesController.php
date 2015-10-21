@@ -48,10 +48,10 @@ class LanguagesController extends Controller
      */
     public function create()
     {
-//        if (Gate::denies('create')) {
-//            Flash::error('You do not have permission to create languages.');
-//            return redirect()->back();
-//        }
+        if (Gate::denies('create', new Language())) {
+            Flash::error('You do not have permission to create languages.');
+            return redirect()->back();
+        }
         //
         return view('languages.create');
     }
@@ -64,7 +64,7 @@ class LanguagesController extends Controller
      */
     public function store(Request $request)
     {
-        if (Gate::denies('store')) {
+        if (Gate::denies('store', new Language())) {
             Flash::error('You do not have permission to save languages.');
             return redirect()->back();
         }
@@ -139,6 +139,14 @@ class LanguagesController extends Controller
             Flash::error('You do not have permission to delete this language.');
             return redirect()->back();
         }
+        $words = $language->words;
+        foreach ($words as $word) {
+            foreach ($word->definitions as $definition) {
+                $definition->delete();
+            }
+            $word->delete();
+        }
+        $language->description->delete();
         $language->delete();
 
         return redirect('languages');
