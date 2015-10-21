@@ -49,6 +49,17 @@ class WordsController extends Controller
     }
 
     /**
+     * Redirects the user to the creation form for a word with the language preselected.
+     * @param Language $language
+     * @return \Illuminate\View\View
+     */
+    public function createForLanguage($id) {
+        $target_language = Language::where('id', $id)->firstOrFail();
+        $languages = Language::all();
+        return view('words.create', compact('languages', 'target_language'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  Request $request

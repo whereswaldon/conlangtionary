@@ -21,6 +21,7 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+Route::get('languages/create-word/{id}', 'WordsController@createForLanguage');
 Route::resource('languages', 'LanguagesController');
 Route::post('languages/search', 'LanguagesController@search');
 Route::resource('words', 'WordsController');

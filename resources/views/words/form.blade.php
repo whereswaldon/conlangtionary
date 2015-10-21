@@ -6,7 +6,8 @@
     <label for='language_id'>Language</label>
     <select class='form-control' type='select' name='language_id'>
 	    @forelse($languages as $language)
-	    @if(isset($word->language_id) && $word->language_id == $language->id)
+	    @if((isset($word->language_id) && $word->language_id == $language->id)
+	    || (isset($target_language) && $language->id == $target_language->id))
 	    <option name='{{$language->name}}' value='{{$language->id}}' selected>{{$language->name}}</option>
 	    @else
 	    <option name='{{$language->name}}' value='{{$language->id}}'>{{$language->name}}</option>

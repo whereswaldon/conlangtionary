@@ -23,13 +23,20 @@
             </div>
 
             <div class="col-lg-6">
-                <h3>Vocabulary</h3>
+                <h3>Vocabulary
+                    @can('create', new \App\Word())
+                    <a href="{{action('WordsController@createForLanguage', ['id' => $language->id])}}" alt="Create a new word in {{$language->name}}">+</a>
+                    @endcan
+                </h3>
                 @if(count($language->words) < 1)
                     <p>Please add some words.</p>
                     @else
                     <ul>
                         @foreach($language->words as $word)
                             <li>{{ $word->ascii_string }}
+                                @can('create', new \App\Definition())
+
+                                @endcan
                                 @can('edit', $word)
                                 <span class="subtle"><a href="{{action('WordsController@edit', ['id' => $word->id])}}"
                                                      alt="Edit {{$word->ascii_string}}">edit</a></span>
