@@ -24,7 +24,7 @@ class AuthController extends Controller
 	 * The path users are taken to upon authentication.
 	 * @var type string
 	 */
-	protected $redirectPath = '/languages';
+	protected $redirectPath = '/';
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 

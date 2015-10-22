@@ -47,6 +47,18 @@ class DefinitionsController extends Controller
     }
 
     /**
+     * Redirects the user to the creation form for a word with the language preselected.
+     * @param Language $language
+     * @return \Illuminate\View\View
+     */
+    public function createForWord($id) {
+        $target_word = Word::find($id);
+        $words = Word::where('language_id', $target_word->language->id)->orderBy('ascii_string')->get();
+        $languages = Language::where('id', $target_word->language->id);
+        return view('definitions.create', compact('languages', 'words', 'target_word'));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  Request  $request

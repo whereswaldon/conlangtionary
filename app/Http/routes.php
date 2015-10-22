@@ -24,6 +24,7 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::get('languages/create-word/{id}', 'WordsController@createForLanguage');
 Route::resource('languages', 'LanguagesController');
 Route::post('languages/search', 'LanguagesController@search');
+Route::get('words/create-definition/{id}', 'DefinitionsController@createForWord');
 Route::resource('words', 'WordsController');
 Route::resource('descriptions', 'DescriptionsController');
 Route::resource('definitions', 'DefinitionsController');
