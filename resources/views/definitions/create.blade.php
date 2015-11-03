@@ -4,7 +4,8 @@
 <div class='container'>
     <div class="row">
 	<div class='col-lg-12'>
-		
+
+		@include('common.errors')
 		<form method="POST" action="/definitions">
 		    {!! csrf_field() !!}
 			@include('definitions.form')

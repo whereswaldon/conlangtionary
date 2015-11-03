@@ -4,7 +4,8 @@
 <div class='container'>
     <div class="row">
 	<div class='col-lg-12'>
-		
+
+		@include('common.errors')
 		<form method="POST" action="{{action('DescriptionsController@update', $description->id)}}">
 		    <input name='_method' type='hidden' value='PATCH'>
 		    {!! csrf_field() !!}

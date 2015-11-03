@@ -1,6 +1,7 @@
 @extends('layouts.inner')
 
 @section('main-content')
+    @include('common.errors')
 <form method="POST" action="/auth/register">
     {!! csrf_field() !!}
 
