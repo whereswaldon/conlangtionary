@@ -4,10 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Word extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, SearchableTrait;
+
+	protected $searchable = [
+		'columns' => [
+			'ascii_string' => 10,
+		]
+	];
 	protected $fillable = [
 	    'ascii_string',
 	    'language_id',

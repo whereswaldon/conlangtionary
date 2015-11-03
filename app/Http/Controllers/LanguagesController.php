@@ -8,6 +8,8 @@ use Gate;
 use Flash;
 use App\Language;
 use App\Http\Requests;
+use App\Word;
+use App\Definition;
 use App\Http\Controllers\Controller;
 
 class LanguagesController extends Controller
@@ -20,11 +22,14 @@ class LanguagesController extends Controller
     public function search(Request $request) {
         $data = $request->all();
         $language = Language::where('id', $data['language_id'])->firstOrFail();
-        $results = Language::where('languages.id', $data['language_id'])
-            ->search($data['search-term'])
-            ->with('words')
+        $word_results = Word::where('language_id', $language->id)
+            ->where('ascii_string', 'like', "%{$data['search-term']}%")
             ->get();
-        return view('search.results', compact('results', 'language'));
+        $definition_results = Definition::join('words', 'definitions.word_id', '=', 'words.id')
+            ->where('language_id', $language->id)
+            ->where('definition_text', 'like', "%{$data['search-term']}%")
+            ->get();
+        return view('search.results', compact('word_results', 'definition_results', 'language'));
     }
     /**
      * Display a listing of the resource.
