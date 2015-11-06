@@ -3,24 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Nicolaslopezj\Searchable\SearchableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Language extends Model
 {
-    use SearchableTrait, SoftDeletes;
-
-    protected $searchable = [
-        'columns' => [
-            'languages.name' => 3,
-            'words.ascii_string' => 10,
-            'definitions.definition_text' => 5
-        ],
-        'joins' => [
-            'words' => ['languages.id', 'words.language_id'],
-            'definitions' => ['words.id', 'definitions.word_id']
-        ]
-    ];
+    use SoftDeletes;
 
  	protected $fillable = [
         'name',
