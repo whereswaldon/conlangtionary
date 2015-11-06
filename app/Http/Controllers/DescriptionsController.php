@@ -27,7 +27,7 @@ class DescriptionsController extends Controller
 //          return redirect()->back();
 //       }
         $languages = Language::orderBy('name')->get();
-        $descriptions = Description::orderBy('language_id')->get();
+        $descriptions = Description::orderBy('language_id')->paginate(50);
         return view('descriptions.index', compact('descriptions', 'languages'));
     }
 

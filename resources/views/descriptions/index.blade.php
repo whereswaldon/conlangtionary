@@ -30,6 +30,7 @@
 		@else
 		<h3>Please add some descriptions. That is why we built this site.</h3>
 		@endif
+		{!! $descriptions->render() !!}
 	</div>
     </div>
 </div>
