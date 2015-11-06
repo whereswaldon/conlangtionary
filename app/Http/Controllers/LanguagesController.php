@@ -14,11 +14,21 @@ use App\Http\Controllers\Controller;
 
 class LanguagesController extends Controller
 {
+    /**
+     * Create a constructor and expose only index, show, and search
+     * functions to unauthenticated users.
+     */
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show', 'search']]);
     }
 
+    /**
+     * Look for the search term within the words and definitions of the given language.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function search(Request $request) {
         $data = $request->all();
         $language = Language::where('id', $data['language_id'])->firstOrFail();
@@ -63,6 +73,7 @@ class LanguagesController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * Storing a new language also creates an empty description for that language.
      *
      * @param  Request $request
      * @return Response
