@@ -29,7 +29,7 @@ class WordsController extends Controller
 //          return redirect()->back();
 //       }
         $languages = Language::orderBy('name')->get();
-        $words = Word::orderBy('language_id')->orderBy('ascii_string')->paginate(50);
+        $words = Word::orderBy('language_id')->orderBy('ascii_string')->paginate(20);
         return view('words.index', compact('words', 'languages'));
     }
 

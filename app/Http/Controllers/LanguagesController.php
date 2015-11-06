@@ -42,7 +42,7 @@ class LanguagesController extends Controller
 //              Flash::error('You do not have permission to see the languages listing.');
 //            return redirect()->back();
 //        }
-        $languages = Language::orderBy('name')->paginate(50);
+        $languages = Language::orderBy('name')->paginate(20);
         return view('languages.index', compact('languages'));
     }
 

@@ -27,7 +27,7 @@ class DefinitionsController extends Controller
 //          Flash::error('You do not have permission to see the definitions listing.');
 //          return redirect()->back();
 //       }
-        $definitions = Definition::orderBy('word_id')->orderBy('definition_number')->paginate(50);
+        $definitions = Definition::orderBy('word_id')->orderBy('definition_number')->paginate(20);
         return view('definitions.index', compact('definitions'));
     }
 
