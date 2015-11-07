@@ -8,25 +8,27 @@
             <a role='button' class='btn  btn-success' href='/words/create'>Create Word</a>
             @if(count($words) > 0)
             <table id='word-table' class='table-hover table'>
-                <tr>
+                <thead>
                 <th>Word</th>
                 <th>Language</th>
                 <th>View</th>
                 <th>Edit</th>
                 <th>Delete</th>
-                </tr>
+                </thead>
 
+                <tbody>
                 @foreach($words as $word)
-                <tr>
-                    <td>{{$word->ascii_string}}</td>
-                    <td>{{$word->language->name}}
-                    <td><a role='button' class='btn btn-info' href='{{ action('WordsController@show', $word->id)}}'>View</a></td>
-                    <td><a role='button' class='btn btn-primary' href='{{ action('WordsController@edit', $word->id)}}'>Edit</a></td>
-                    <td>{!! Form::open(['method'=>'DELETE','action'=>['WordsController@destroy', $word->id], 'class' => '+inline-block']) !!}
-                                  {!! Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' =>'return confirm("Are you sure? This cannot be undone.");']) !!}
-                      {!! Form::close() !!}</td>
-                </tr>
+                    <tr>
+                        <td>{{$word->ascii_string}}</td>
+                        <td>{{$word->language->name}}
+                        <td><a role='button' class='btn btn-info' href='{{ action('WordsController@show', $word->id)}}'>View</a></td>
+                        <td><a role='button' class='btn btn-primary' href='{{ action('WordsController@edit', $word->id)}}'>Edit</a></td>
+                        <td>{!! Form::open(['method'=>'DELETE','action'=>['WordsController@destroy', $word->id], 'class' => '+inline-block']) !!}
+                            {!! Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' =>'return confirm("Are you sure? This cannot be undone.");']) !!}
+                            {!! Form::close() !!}</td>
+                    </tr>
                 @endforeach
+                </tbody>
 
             </table>
             @else

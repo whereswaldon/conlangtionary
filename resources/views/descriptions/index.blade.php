@@ -8,23 +8,25 @@
 	    {{--<a role='button' class='btn  btn-success' href='/descriptions/create'>Create Description</a>--}}
 		@if(count($descriptions) > 0)
 		<table id='description-table' class='table-hover table'>
-		    <tr>
+		    <thead>
 			<th>Description for Language</th>
 			<th>View</th>
 			<th>Edit</th>
 			<th>Delete</th>
-		    </tr>
+		    </thead>
 
+			<tbody>
 			@foreach($descriptions as $description)
-			<tr>
-			    <td>{{$description->language->name}}
-			    <td><a role='button' class='btn btn-info' href='{{ action('DescriptionsController@show', $description->id)}}'>View</a></td>
-			    <td><a role='button' class='btn btn-primary' href='{{ action('DescriptionsController@edit', $description->id)}}'>Edit</a></td>
-			    <td>{!! Form::open(['method'=>'DELETE','action'=>['DescriptionsController@destroy', $description->id], 'class' => '+inline-block']) !!}
-                              {!! Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' =>'return confirm("Are you sure? This cannot be undone.");']) !!}
-			      {!! Form::close() !!}</td>
-			</tr>
+				<tr>
+					<td>{{$description->language->name}}
+					<td><a role='button' class='btn btn-info' href='{{ action('DescriptionsController@show', $description->id)}}'>View</a></td>
+					<td><a role='button' class='btn btn-primary' href='{{ action('DescriptionsController@edit', $description->id)}}'>Edit</a></td>
+					<td>{!! Form::open(['method'=>'DELETE','action'=>['DescriptionsController@destroy', $description->id], 'class' => '+inline-block']) !!}
+						{!! Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' =>'return confirm("Are you sure? This cannot be undone.");']) !!}
+						{!! Form::close() !!}</td>
+				</tr>
 			@endforeach
+			</tbody>
 
 		</table>
 		@else

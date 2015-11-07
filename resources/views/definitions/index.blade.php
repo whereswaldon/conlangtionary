@@ -8,7 +8,7 @@
             <a role='button' class='btn  btn-success' href='/definitions/create'>Create Definition</a>
             @if(count($definitions) > 0)
             <table id='word-table' class='table-hover table'>
-                <tr>
+                <thead>
                     <th>Word</th>
                     <th>Language</th>
                     <th>Definition Number</th>
@@ -16,21 +16,23 @@
                     <th>View</th>
                     <th>Edit</th>
                     <th>Delete</th>
-                </tr>
+                </thead>
 
+                <tbody>
                 @foreach($definitions as $definition)
-                <tr>
-                    <td>{{$definition->word->ascii_string}}</td>
-                    <td>{{$definition->word->language->name}}
-                    <td>{{$definition->definition_number}}</td>
-                    <td>{{ $definition->definition_text }}</td>
-                    <td><a role='button' class='btn btn-info' href='{{ action('DefinitionsController@show', $definition->id)}}'>View</a></td>
-                    <td><a role='button' class='btn btn-primary' href='{{ action('DefinitionsController@edit', $definition->id)}}'>Edit</a></td>
-                    <td>{!! Form::open(['method'=>'DELETE','action'=>['DefinitionsController@destroy', $definition->id], 'class' => '+inline-block']) !!}
-                                  {!! Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' =>'return confirm("Are you sure? This cannot be undone.");']) !!}
-                      {!! Form::close() !!}</td>
-                </tr>
+                    <tr>
+                        <td>{{$definition->word->ascii_string}}</td>
+                        <td>{{$definition->word->language->name}}
+                        <td>{{$definition->definition_number}}</td>
+                        <td>{{ $definition->definition_text }}</td>
+                        <td><a role='button' class='btn btn-info' href='{{ action('DefinitionsController@show', $definition->id)}}'>View</a></td>
+                        <td><a role='button' class='btn btn-primary' href='{{ action('DefinitionsController@edit', $definition->id)}}'>Edit</a></td>
+                        <td>{!! Form::open(['method'=>'DELETE','action'=>['DefinitionsController@destroy', $definition->id], 'class' => '+inline-block']) !!}
+                            {!! Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' =>'return confirm("Are you sure? This cannot be undone.");']) !!}
+                            {!! Form::close() !!}</td>
+                    </tr>
                 @endforeach
+                </tbody>
 
             </table>
             @else
