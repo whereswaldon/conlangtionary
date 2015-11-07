@@ -12,6 +12,9 @@
         <li>
             <a href='{{route('definitions.index')}}' alt='Definition Management'>Definitions</a>
         </li>
+		<li>
+			<a href='{{route('tags.index')}}' alt='Tag Management'>Tags</a>
+		</li>
 	    @if(Auth::check())
 	    <li>
 		<a href='/auth/logout' alt='Logout'>Log Out ({{Auth::user()->name}})</a>

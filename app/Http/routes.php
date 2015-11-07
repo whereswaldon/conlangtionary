@@ -28,6 +28,7 @@ Route::get('words/create-definition/{id}', 'DefinitionsController@createForWord'
 Route::resource('words', 'WordsController');
 Route::resource('descriptions', 'DescriptionsController');
 Route::resource('definitions', 'DefinitionsController');
+Route::resource('tags', 'TagsController');
 
 Route::get('/', function () {
     $languages = \App\Language::all();

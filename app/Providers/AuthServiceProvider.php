@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Language;
 use App\Policies\LanguagePolicy;
@@ -12,6 +13,8 @@ use App\Definition;
 use App\Policies\DefinitionPolicy;
 use App\Word;
 use App\Policies\WordPolicy;
+use App\Tag;
+use App\Policies\TagPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         Word::class => WordPolicy::class,
         Description::class => DescriptionPolicy::class,
         Definition::class => DefinitionPolicy::class,
+        Tag::class => TagPolicy::class,
     ];
 
     /**

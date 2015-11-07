@@ -22,6 +22,7 @@ class Tag extends Model
         'description',
         'abbreviation',
         'language_id',
+        'notes',
     ];
 
     /**

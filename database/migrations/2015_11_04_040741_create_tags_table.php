@@ -19,6 +19,7 @@ class CreateTagsTable extends Migration
             $table->text('description');
             $table->integer('language_id')->unsigned();
             $table->foreign('language_id')->references('id')->on('languages');
+            $table->text('notes')->default('');
             $table->softDeletes();
             $table->nullableTimestamps();
         });
