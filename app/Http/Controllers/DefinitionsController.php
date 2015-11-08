@@ -125,7 +125,8 @@ class DefinitionsController extends Controller
             Flash::error('You do not have permission to edit this definition.');
             return redirect()->back();
         }
-        return view('definitions.edit', compact('definition', 'words'));
+        $tags = $definition->word->language->tags;
+        return view('definitions.edit', compact('definition', 'words', 'tags'));
     }
 
     /**

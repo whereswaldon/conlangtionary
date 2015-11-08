@@ -22,7 +22,11 @@
         <label for='tags'>Tags</label>
         <select id="tags" class="form-control" name="tags[]" multiple="multiple">
             @foreach($tags as $tag)
-                <option name="{{$tag->name}}" value="{{$tag->name}}">{{$tag->name}}</option>
+                <option name="{{$tag->name}}" value="{{$tag->name}}"
+                @if((isset($definition) && $definition->tags->contains($tag)))
+                    selected
+                @endif
+                >{{$tag->name}}</option>
             @endforeach
         </select>
     </div>
