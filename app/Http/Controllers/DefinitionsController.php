@@ -85,7 +85,7 @@ class DefinitionsController extends Controller
             } else { //otherwise, create it and then associate it
                 $newTag = $newDef->word->language->tags()->create([
                     'name' => $tagName,
-                    'abbreviation' => $tagName,
+                    'abbreviation' => "($tagName)",
                     'description' => 'A new tag, as yet undefined',
                 ]);
                 $newDef->tags()->attach($newTag);

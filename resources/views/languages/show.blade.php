@@ -21,10 +21,22 @@
                                      alt="Edit {{$language->name}} Description">edit</a></p>
                 @endcan
                 <p>{{ $language->description->description }}</p>
-                <h3>Definition Tags</h3>
+                <h3>Definition Tags
+                    @can('create', new \App\Tag())
+                    <a href="{{action('TagsController@createForLanguage', ['id' => $language->id])}}"
+                       alt="Create a tag">+</a>
+                    @endcan
+                </h3>
                 <ul>
                     @forelse($language->tags as $tag)
-                        <li>{{$tag->name}} {{$tag->abbreviation}} - {{$tag->description}}</li>
+                        <li>
+                            {{$tag->name}} {{$tag->abbreviation}} - {{$tag->description}}
+                            @can('edit', $tag)
+                            <span class="subtle">
+                                <a href="{{action('TagsController@edit', ['id' => $tag->id])}}" alt="Edit this tag">edit</a>
+                            </span>
+                            @endcan
+                        </li>
                         @empty
                         <li>This language has no tags.</li>
                     @endforelse
