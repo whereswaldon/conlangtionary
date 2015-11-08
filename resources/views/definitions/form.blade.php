@@ -17,6 +17,16 @@
     <label for='definition_text'>Definition Text</label>
     <input class='form-control' type="text" name="definition_text" value="{{ $definition->definition_text or "" }}">
 </div>
+@if(isset($tags))
+    <div class='form-group'>
+        <label for='tags'>Tags</label>
+        <select id="tags" class="form-control" name="tags[]" multiple="multiple">
+            @foreach($tags as $tag)
+                <option name="{{$tag->name}}" value="{{$tag->name}}">{{$tag->name}}</option>
+            @endforeach
+        </select>
+    </div>
+@endif
 <div class='form-group'>
     <label for='notes'>Notes</label>
     <textarea class='form-control' type="text" name="notes">{{ $definition->notes or ""}}</textarea>

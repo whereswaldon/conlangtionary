@@ -1,9 +1,5 @@
 @extends('app')
 
-@section('header-styles')
-
-@stop
-
 @section('content')
 <div class='container'>
     <div class='row'>
@@ -14,6 +10,3 @@
 </div>
 @stop
 
-@section('footer-scripts')
-
-@stop

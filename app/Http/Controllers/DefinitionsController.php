@@ -55,7 +55,8 @@ class DefinitionsController extends Controller
         $target_word = Word::find($id);
         $words = Word::where('language_id', $target_word->language->id)->orderBy('ascii_string')->get();
         $languages = Language::where('id', $target_word->language->id);
-        return view('definitions.create', compact('languages', 'words', 'target_word'));
+        $tags = $target_word->language->tags;
+        return view('definitions.create', compact('languages', 'words', 'target_word', 'tags'));
     }
 
     /**
@@ -75,6 +76,22 @@ class DefinitionsController extends Controller
         $data['definition_number'] = count($otherDefs) + 1;
         $newDef= Definition::create($data);
 
+        //Attach the given tags to the word.
+        $currentTags = $newDef->word->language->tags; //Get all tags on the language
+        foreach($data['tags'] as $tagName) { //attach each tag
+            $matchingTag = $currentTags->where('name', $tagName)->first();
+            if ( $matchingTag ) { //if the tag exists, just associate it.
+                $newDef->tags()->attach($matchingTag->id);
+            } else { //otherwise, create it and then associate it
+                $newTag = $newDef->word->language->tags()->create([
+                    'name' => $tagName,
+                    'abbreviation' => $tagName,
+                    'description' => 'A new tag, as yet undefined',
+                ]);
+                $newDef->tags()->attach($newTag);
+            }
+        }
+        dd($newDef->tags);
         return redirect('definitions');
     }
 
