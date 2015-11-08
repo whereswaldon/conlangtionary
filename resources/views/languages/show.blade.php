@@ -14,16 +14,24 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 panel panel-body">
                 <h3>Description</h3>
                 @can('edit', $language->description)
                 <p class="subtle"><a href="{{action('DescriptionsController@edit', ['id' => $language->description->id])}}"
                                      alt="Edit {{$language->name}} Description">edit</a></p>
                 @endcan
                 <p>{{ $language->description->description }}</p>
+                <h3>Definition Tags</h3>
+                <ul>
+                    @forelse($language->tags as $tag)
+                        <li>{{$tag->name}} {{$tag->abbreviation}} - {{$tag->description}}</li>
+                        @empty
+                        <li>This language has no tags.</li>
+                    @endforelse
+                </ul>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-6 panel panel-body">
                 <h3>Vocabulary
                     @can('create', new \App\Word())
                     <a href="{{action('WordsController@createForLanguage', ['id' => $language->id])}}" alt="Create a new word in {{$language->name}}">+</a>
@@ -45,7 +53,11 @@
                             @if( count($word->definitions) > 0)
                                 <ol>
                                     @foreach($word->definitions->sortBy('definition_number') as $definition)
-                                        <li>{{ $definition->definition_text }}
+                                        <li>
+                                            @foreach($definition->tags as $tag)
+                                                {{$tag->abbreviation}}&nbsp;
+                                            @endforeach
+                                            {{ $definition->definition_text }}
                                             @can('edit', $definition)
                                             <span class="subtle"><a href="{{action('DefinitionsController@edit', ['id' => $definition->id])}}"
                                                                     alt="Edit Definition #{{$definition->definition_number}}">edit</a></span>
