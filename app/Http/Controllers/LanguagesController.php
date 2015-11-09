@@ -87,7 +87,8 @@ class LanguagesController extends Controller
         $data = $request->all();
         $newLang = Language::create($data);
         Description::create(['description' => "I'm a new language!", 'language_id' => $newLang->id]);
-        return redirect('languages');
+
+        return redirect()->action('LanguagesController@show', [$newLang->id]);
     }
 
     /**
@@ -139,7 +140,7 @@ class LanguagesController extends Controller
         }
         $language->update($data);
 
-        return redirect('languages');
+        return redirect()->action('LanguagesController@show', [$language->id]);
     }
 
     /**
@@ -165,6 +166,6 @@ class LanguagesController extends Controller
         $language->description->delete();
         $language->delete();
 
-        return redirect('languages');
+        return redirect()->action('LanguagesController@show', [$language->id]);
     }
 }

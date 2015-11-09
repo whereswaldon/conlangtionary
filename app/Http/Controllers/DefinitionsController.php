@@ -76,23 +76,25 @@ class DefinitionsController extends Controller
         $data['definition_number'] = count($otherDefs) + 1;
         $newDef= Definition::create($data);
 
-        //Attach the given tags to the word.
-        $currentTags = $newDef->word->language->tags; //Get all tags on the language
-        foreach($data['tags'] as $tagName) { //attach each tag
-            $matchingTag = $currentTags->where('name', $tagName)->first();
-            if ( $matchingTag ) { //if the tag exists, just associate it.
-                $newDef->tags()->attach($matchingTag->id);
-            } else { //otherwise, create it and then associate it
-                $newTag = $newDef->word->language->tags()->create([
-                    'name' => $tagName,
-                    'abbreviation' => "($tagName)",
-                    'description' => 'A new tag, as yet undefined',
-                ]);
-                $newDef->tags()->attach($newTag);
+        //handle tags, if any are in the request.
+        if (isset($data['tags'])) {
+            //Attach the given tags to the word.
+            $currentTags = $newDef->word->language->tags; //Get all tags on the language
+            foreach($data['tags'] as $tagName) { //attach each tag
+                $matchingTag = $currentTags->where('name', $tagName)->first();
+                if ( $matchingTag ) { //if the tag exists, just associate it.
+                    $newDef->tags()->attach($matchingTag->id);
+                } else { //otherwise, create it and then associate it
+                    $newTag = $newDef->word->language->tags()->create([
+                        'name' => $tagName,
+                        'abbreviation' => "($tagName)",
+                        'description' => 'A new tag, as yet undefined',
+                    ]);
+                    $newDef->tags()->attach($newTag);
+                }
             }
         }
-        dd($newDef->tags);
-        return redirect('definitions');
+        return redirect()->action('LanguagesController@show', [$newDef->word->language->id]);
     }
 
     /**
@@ -163,7 +165,7 @@ class DefinitionsController extends Controller
                 $definition->tags()->attach($newTag);
             }
         }
-        return redirect('definitions');
+        return redirect()->action('LanguagesController@show', [$definition->word->language->id]);
     }
 
     /**
@@ -181,6 +183,6 @@ class DefinitionsController extends Controller
         }
         $definition->delete();
 
-        return redirect('definitions');
+        return redirect()->action('LanguagesController@show', [$definition->word->language->id]);
     }
 }

@@ -61,7 +61,7 @@ class DescriptionsController extends Controller
         $data = $request->all();
         $description = Description::create($data);
 
-        return redirect('descriptions');
+        return redirect()->action('LanguagesController@show', [$description->language->id]);
     }
 
     /**
@@ -114,7 +114,7 @@ class DescriptionsController extends Controller
         }
         $description->update($data);
 
-        return redirect('descriptions');
+        return redirect()->action('LanguagesController@show', [$description->language->id]);
     }
 
     /**
@@ -132,6 +132,6 @@ class DescriptionsController extends Controller
         }
         $description->delete();
 
-        return redirect('descriptions');
+        return redirect()->action('LanguagesController@show', [$description->language->id]);
     }
 }

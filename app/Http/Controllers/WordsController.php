@@ -72,9 +72,9 @@ class WordsController extends Controller
             return redirect()->back();
         }
         $data = $request->all();
-        $newLang = Word::create($data);
+        $word = Word::create($data);
 
-        return redirect('words');
+        return redirect()->action('LanguagesController@show', [$word->language->id]);
     }
 
     /**
@@ -127,7 +127,7 @@ class WordsController extends Controller
         }
         $word->update($data);
 
-        return redirect('words');
+        return redirect()->action('LanguagesController@show', [$word->language->id]);
     }
 
     /**
@@ -148,6 +148,6 @@ class WordsController extends Controller
         }
         $word->delete();
 
-        return redirect('words');
+        return redirect()->action('LanguagesController@show', [$word->language->id]);
     }
 }

@@ -74,9 +74,9 @@ class TagsController extends Controller
             return redirect()->back();
         }
         $data = $request->all();
-        $newLang = Tag::create($data);
+        $tag= Tag::create($data);
 
-        return redirect('tags');
+        return redirect()->action('LanguagesController@show', [$tag->language->id]);
     }
 
     /**
@@ -129,7 +129,7 @@ class TagsController extends Controller
         }
         $tag->update($data);
 
-        return redirect('tags');
+        return redirect()->action('LanguagesController@show', [$tag->language->id]);
     }
 
     /**
@@ -150,6 +150,6 @@ class TagsController extends Controller
         }
         $tag->delete();
 
-        return redirect('tags');
+        return redirect()->action('LanguagesController@show', [$tag->language->id]);
     }
 }
