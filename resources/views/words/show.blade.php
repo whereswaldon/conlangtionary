@@ -8,7 +8,11 @@
                 @if( count($word->definitions) > 0)
                     <ol>
                         @foreach($word->definitions->sortBy('definition_number') as $definition)
-                            <li>{{ $definition->definition_text }}</li>
+                            <li>
+                                @foreach($definition->tags as $tag)
+                                    {{$tag->abbreviation}}&nbsp;
+                                @endforeach
+                                {{ $definition->definition_text }}</li>
                         @endforeach
                     </ol>
                     @else
