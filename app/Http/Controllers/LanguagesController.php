@@ -166,6 +166,6 @@ class LanguagesController extends Controller
         $language->description->delete();
         $language->delete();
 
-        return redirect()->action('LanguagesController@show', [$language->id]);
+        return redirect('languages');
     }
 }
