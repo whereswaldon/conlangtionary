@@ -49,11 +49,11 @@
                     <a href="{{action('WordsController@createForLanguage', ['id' => $language->id])}}" alt="Create a new word in {{$language->name}}">+</a>
                     @endcan
                 </h3>
-                @if(count($language->words) < 1)
+                @if(count($words) < 1)
                     <p>Please add some words.</p>
                     @else
                     <ul>
-                        @foreach($language->words->sortBy('ascii_string') as $word)
+                        @foreach($words->sortBy('ascii_string') as $word)
                             <li> @can('edit', $word)
                                 <span class="subtle"><a href="{{action('WordsController@edit', ['id' => $word->id])}}"
                                                         alt="Edit {{$word->ascii_string}}">(edit)</a></span>
@@ -84,6 +84,7 @@
                             @endif
                             </li>
                         @endforeach
+                        {!! $words->render() !!}
                     </ul>
                 @endif
                 <p><em>Notes:</em> {{ $language->notes }}</p>
