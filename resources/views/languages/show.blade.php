@@ -53,7 +53,7 @@
                     <p>Please add some words.</p>
                     @else
                     <ul>
-                        @foreach($words->sortBy('ascii_string') as $word)
+                        @foreach($words as $word)
                             <li> @can('edit', $word)
                                 <span class="subtle"><a href="{{action('WordsController@edit', ['id' => $word->id])}}"
                                                         alt="Edit {{$word->ascii_string}}">(edit)</a></span>
