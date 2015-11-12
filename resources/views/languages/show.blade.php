@@ -28,7 +28,7 @@
                     @endcan
                 </h3>
                 <ul>
-                    @forelse($language->tags as $tag)
+                    @forelse($language->tags->sortBy('name') as $tag)
                         <li>
                             {{$tag->name}} {{$tag->abbreviation}} - {{$tag->description}}
                             @can('edit', $tag)
