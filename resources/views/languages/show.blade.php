@@ -10,7 +10,7 @@
                             @can('edit', $language)
                             <a href="{{action('LanguagesController@edit', ['id' => $language->id])}}"
                                alt="Edit {{$language->name}}"
-                               class="btn btn-sm btn-success"><strong>Edit</strong></a>
+                               class="btn btn-sm btn-success"><strong>Edit Language</strong></a>
                             @endcan
                         </h2>
                     </div>
@@ -28,7 +28,7 @@
                         <h3>Description
                             @can('edit', $language->description)
                             <a href="{{action('DescriptionsController@edit', ['id' => $language->description->id])}}"
-                               alt="Edit {{$language->name}} Description" class="btn btn-sm btn-info"><strong>Edit</strong></a>
+                               alt="Edit {{$language->name}} Description" class="btn btn-sm btn-info"><strong>Edit Description</strong></a>
                             @endcan
                         </h3>
                     </div>
@@ -53,7 +53,7 @@
                                     {{$tag->name}} {{$tag->abbreviation}} - {{$tag->description}}
                                     @can('edit', $tag)
                                     <a href="{{action('TagsController@edit', ['id' => $tag->id])}}"
-                                       alt="Edit this tag" class="btn btn-xs btn-default">Edit</a>
+                                       alt="Edit this tag" class="btn btn-xs btn-default">Edit Tag</a>
                                     @endcan
                                 </li>
                             @empty
@@ -80,11 +80,20 @@
                         @else
                             <ul>
                                 @foreach($words as $word)
-                                    <li> @can('edit', $word)
-                                        <a href="{{action('WordsController@edit', ['id' => $word->id])}}"
-                                           alt="Edit {{$word->ascii_string}}" class="btn btn-xs btn-default">Edit</a>
-                                        @endcan
+                                    <li>
                                         {{ $word->ascii_string }}
+                                        @can('edit', $word)
+                                        &nbsp;
+                                        <a href="{{action('WordsController@edit', ['id' => $word->id])}}"
+                                           alt="Edit {{$word->ascii_string}}" class="btn btn-xs btn-default">Edit Word</a>
+                                        @endcan
+                                        @can('create', new \App\Definition())
+                                        &nbsp;
+                                        <a href="{{action('DefinitionsController@createForWord', ['id' => $word->id])}}"
+                                           alt="Create a new definition for {{$word->ascii_string}}"
+                                           class="btn btn-xs btn-default">
+                                            Add Definition</a>
+                                        @endcan
                                         @if( count($word->definitions) > 0)
                                             <ol>
                                                 @foreach($word->definitions->sortBy('definition_number') as $definition)
@@ -96,19 +105,11 @@
                                                         @can('edit', $definition)
                                                         <a href="{{action('DefinitionsController@edit', ['id' => $definition->id])}}"
                                                            alt="Edit Definition #{{$definition->definition_number}}"
-                                                           class="btn btn-xs btn-default" >edit</a>
+                                                           class="btn btn-xs btn-default" >Edit Definition</a>
                                                         @endcan
                                                     </li>
 
                                                 @endforeach
-                                                <li>
-                                                    @can('create', new \App\Definition())
-                                                    <a href="{{action('DefinitionsController@createForWord', ['id' => $word->id])}}"
-                                                       alt="Create a new definition for {{$word->ascii_string}}"
-                                                       class="btn btn-xs btn-default">
-                                                        Add Definition</a>
-                                                    @endcan
-                                                </li>
                                             </ol>
 
                                         @else
