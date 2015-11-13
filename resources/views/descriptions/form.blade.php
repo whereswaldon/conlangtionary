@@ -14,5 +14,5 @@
 </div>
 <div class='form-group'>
     <label for='description'>Description</label>
-    <textarea class='form-control' type="text" name="description">{{ $description->description or ""}}</textarea>
+    <textarea class='form-control' type="text" name="description" rows="10">{{ $description->description or ""}}</textarea>
 </div>
