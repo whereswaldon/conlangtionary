@@ -116,6 +116,7 @@
                                             <ul><li><span class="undefined-warning">This word has not been defined.</span></li></ul>
                                         @endif
                                     </li>
+                                    <hr>
                                 @endforeach
                                 {!! $words->render() !!}
                             </ul>
