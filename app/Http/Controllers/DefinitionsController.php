@@ -166,6 +166,10 @@ class DefinitionsController extends Controller
                     $definition->tags()->attach($newTag);
                 }
             }
+            $removeAll = array_diff($definition->tags->pluck('name')->toArray(), $data['tags']);
+            foreach ($removeAll as $nameToRemove) {
+                $definition->tags()->detach($languageTags->where('name', $nameToRemove)->first());
+            }
         }
         return redirect()->action('LanguagesController@show', [$definition->word->language->id]);
     }
