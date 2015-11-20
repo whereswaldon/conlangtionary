@@ -17,6 +17,7 @@
                     <div class="panel-body">
                         <p>{{ $language->short_description }}
                         </p>
+                        <p><em>Language Notes:</em> {{ $language->notes }}</p>
                     </div>
                 </div>
             </div>
@@ -140,7 +141,6 @@
                                 </div>
                             @endif
                         @endif
-                        <p><em>Notes:</em> {{ $language->notes }}</p>
                     </div>
                 </div>
         </div>
