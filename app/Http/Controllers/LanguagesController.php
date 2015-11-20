@@ -106,7 +106,6 @@ class LanguagesController extends Controller
 //              Flash::error('You do not have permission to view this language.');
 //            return redirect()->back();
 //        }
-        dump($language->description->description);
         $description = Markdown::string($language->description->description);
         return view('languages.show', compact('language', 'words', 'description'));
     }
