@@ -10,7 +10,8 @@
         "illuminate/html": "5.*",
         "barryvdh/laravel-ide-helper": "^2.1",
         "laracasts/flash": "~1.3",
-        "barryvdh/laravel-debugbar": "^2.0"
+        "barryvdh/laravel-debugbar": "^2.0",
+        "vtalbot/markdown": "2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -14,5 +14,6 @@
 </div>
 <div class='form-group'>
     <label for='description'>Description</label>
+    <p class="help-block">Supports <a href="https://help.github.com/articles/markdown-basics/" alt="Markdown Basics">Markdown</a></p>
     <textarea class='form-control' type="text" name="description" rows="10">{{ $description->description or ""}}</textarea>
 </div>

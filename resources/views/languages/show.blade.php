@@ -34,7 +34,7 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <p>{{ $language->description->description }}</p>
+                        <p>{!! $description !!}</p>
                     </div>
                 </div>
             </div>
