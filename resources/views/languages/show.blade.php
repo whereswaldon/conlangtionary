@@ -36,7 +36,8 @@
                         <p>{{ $language->description->description }}</p>
                     </div>
                 </div>
-
+            </div>
+            <div class="col-lg-6">
                 <div class="panel panel-warning">
                     <div class="panel-heading">
                         <h3>Definition Tags
@@ -63,23 +64,35 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col-lg-6">
+        <div class="row">
                 <div class="panel panel-danger">
                     <div class="panel-heading">
-                        <h3>Vocabulary
-                            @can('create', new \App\Word())
-                            <a href="{{action('WordsController@createForLanguage', ['id' => $language->id])}}"
-                               alt="Create a new word in {{$language->name}}" class="btn btn-sm btn-danger"><strong>Add Word</strong></a>
-                            @endcan
-                        </h3>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h3>Vocabulary
+                                    @can('create', new \App\Word())
+                                    <a href="{{action('WordsController@createForLanguage', ['id' => $language->id])}}"
+                                       alt="Create a new word in {{$language->name}}" class="btn btn-sm btn-danger"><strong>Add Word</strong></a>
+                                    @endcan
+                                </h3>
+                            </div>
+                            @if(count($words))
+                                <div class="col-lg-3 col-lg-offset-3">
+                                    {!! $words->render() !!}
+                                </div>
+                            @endif
+                        </div>
                     </div>
                     <div class="panel-body">
                         @if(count($words) < 1)
                             <p>Please add some words.</p>
                         @else
-                            <ul>
-                                @foreach($words as $word)
+                                @foreach($words->chunk(count($words)/3) as $chunk)
+                                    <div class="col-lg-4">
+                                    @foreach($chunk as $word)
+                                    <ul>
                                     <li>
                                         {{ $word->ascii_string }}
                                         @can('edit', $word)
@@ -117,14 +130,20 @@
                                         @endif
                                     </li>
                                     <hr>
+                                    </ul>
+                                    @endforeach
+                                    </div>
                                 @endforeach
-                                {!! $words->render() !!}
-                            </ul>
+                            @if(count($words))
+                                <div class="col-lg-3 col-lg-offset-9">
+                                    {!! $words->render() !!}
+                                </div>
+                            @endif
                         @endif
                         <p><em>Notes:</em> {{ $language->notes }}</p>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
+</div>
 @stop
