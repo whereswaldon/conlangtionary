@@ -11,6 +11,7 @@ use App\Http\Requests;
 use App\Word;
 use App\Definition;
 use App\Http\Controllers\Controller;
+use Markdown;
 
 class LanguagesController extends Controller
 {
@@ -105,7 +106,8 @@ class LanguagesController extends Controller
 //              Flash::error('You do not have permission to view this language.');
 //            return redirect()->back();
 //        }
-        return view('languages.show', compact('language', 'words'));
+        $description = Markdown::string($language->description->description);
+        return view('languages.show', compact('language', 'words', 'description'));
     }
 
     /**

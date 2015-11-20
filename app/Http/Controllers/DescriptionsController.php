@@ -9,6 +9,7 @@ use Flash;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Markdown;
 
 class DescriptionsController extends Controller
 {
@@ -77,7 +78,8 @@ class DescriptionsController extends Controller
 //          Flash::error('You do not have permission to view this description.');
 //          return redirect()->back();
 //       }
-        return view('descriptions.show', compact('description'));
+        $markdown = Markdown::string($description->description);
+        return view('descriptions.show', compact('description', 'markdown'));
     }
 
     /**
