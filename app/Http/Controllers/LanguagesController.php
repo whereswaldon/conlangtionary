@@ -100,7 +100,7 @@ class LanguagesController extends Controller
     public function show($id)
     {
         $language = Language::where('id', $id)->firstOrFail();
-        $words = Word::where('language_id', $language->id)->orderBy('ascii_string')->paginate(20);
+        $words = Word::where('language_id', $language->id)->orderBy('ascii_string')->paginate(30);
 //        if (Gate::denies('show', $language)) {
 //              Flash::error('You do not have permission to view this language.');
 //            return redirect()->back();

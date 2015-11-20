@@ -15,7 +15,7 @@ class FakeLanguageSeeder extends Seeder
             $description = factory(\App\Description::class, 1)->make();
             $description->language_id = $language->id;
             $description->save();
-            factory(\App\Word::class, 10)
+            factory(\App\Word::class, 90)
                 ->make()
                 ->each(
                     function ($word) use ($language) {
