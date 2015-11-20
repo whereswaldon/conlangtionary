@@ -150,19 +150,25 @@ class DefinitionsController extends Controller
 
         //Attach the given tags to the word.
         $languageTags = $definition->word->language->tags; //Get all tags on the language
-        foreach($data['tags'] as $tagName) { //attach each tag
-            $matchingTag = $languageTags->where('name', $tagName)->first();
-            if ( $matchingTag ) { //if the tag exists, just associate it.
-                if (! $definition->tags->contains($matchingTag)) { //if the tag is already on the word
-                    $definition->tags()->attach($matchingTag->id);
+        if (isset($data['tags'])) {
+            foreach($data['tags'] as $tagName) { //attach each tag
+                $matchingTag = $languageTags->where('name', $tagName)->first();
+                if ( $matchingTag ) { //if the tag exists, just associate it.
+                    if (! $definition->tags->contains($matchingTag)) { //if the tag is already on the word
+                        $definition->tags()->attach($matchingTag->id);
+                    }
+                } else { //otherwise, create it and then associate it
+                    $newTag = $definition->word->language->tags()->create([
+                        'name' => $tagName,
+                        'abbreviation' => "($tagName)",
+                        'description' => 'A new tag, as yet undefined',
+                    ]);
+                    $definition->tags()->attach($newTag);
                 }
-            } else { //otherwise, create it and then associate it
-                $newTag = $definition->word->language->tags()->create([
-                    'name' => $tagName,
-                    'abbreviation' => "($tagName)",
-                    'description' => 'A new tag, as yet undefined',
-                ]);
-                $definition->tags()->attach($newTag);
+            }
+            $removeAll = array_diff($definition->tags->pluck('name')->toArray(), $data['tags']);
+            foreach ($removeAll as $nameToRemove) {
+                $definition->tags()->detach($languageTags->where('name', $nameToRemove)->first());
             }
         }
         return redirect()->action('LanguagesController@show', [$definition->word->language->id]);
