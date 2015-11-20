@@ -69,8 +69,10 @@
                     <div class="panel-heading">
                         <h3>Vocabulary
                             @can('create', new \App\Word())
-                            <a href="{{action('WordsController@createForLanguage', ['id' => $language->id])}}"
+                            <a href="{{action('WordsController@createForLanguage', ['id' => $language->id, 'withDefinition' => false])}}"
                                alt="Create a new word in {{$language->name}}" class="btn btn-sm btn-danger"><strong>Add Word</strong></a>
+                            <a href="{{action('WordsController@createForLanguage', ['id' => $language->id, 'withDefinition' => true])}}"
+                               alt="Create a new word in {{$language->name}}" class="btn btn-sm btn-danger"><strong>Define New Word</strong></a>
                             @endcan
                         </h3>
                     </div>

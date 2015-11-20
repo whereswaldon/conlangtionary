@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Definition;
 use Gate;
 use Flash;
 use App\Word;
@@ -53,10 +54,10 @@ class WordsController extends Controller
      * @param Language $language
      * @return \Illuminate\View\View
      */
-    public function createForLanguage($id) {
+    public function createForLanguage($id, $withDefinition = false) {
         $target_language = Language::where('id', $id)->firstOrFail();
         $languages = Language::all();
-        return view('words.create', compact('languages', 'target_language'));
+        return view('words.create', compact('languages', 'target_language', 'withDefinition'));
     }
 
     /**
@@ -71,8 +72,40 @@ class WordsController extends Controller
             Flash::error('You do not have permission to save a new word in this language.');
             return redirect()->back();
         }
+        //handle the possibility of an attached definition
         $data = $request->all();
-        $word = Word::create($data);
+        $word = Word::create([
+            'ascii_string' => $data['ascii_string'],
+            'language_id' => $data['language_id'],
+            'notes' => $data['notes'],
+        ]);
+        if ($data['withDefinition']) {
+            $newDef = Definition::create([
+                'definition_number' => 1,
+                'definition_text' => $data['definition_text'],
+                'definition_notes' => $data['definition_notes'],
+                'word_id' => $word->id,
+            ]);
+
+            //handle tags, if any are in the request.
+            if (isset($data['definition_tags'])) {
+                //Attach the given tags to the word.
+                $currentTags = $newDef->word->language->tags; //Get all tags on the language
+                foreach($data['definition_tags'] as $tagName) { //attach each tag
+                    $matchingTag = $currentTags->where('name', $tagName)->first();
+                    if ( $matchingTag ) { //if the tag exists, just associate it.
+                        $newDef->tags()->attach($matchingTag->id);
+                    } else { //otherwise, create it and then associate it
+                        $newTag = $newDef->word->language->tags()->create([
+                            'name' => $tagName,
+                            'abbreviation' => "($tagName)",
+                            'description' => 'A new tag, as yet undefined',
+                        ]);
+                        $newDef->tags()->attach($newTag);
+                    }
+                }
+            }
+        }
 
         return redirect()->action('LanguagesController@show', [$word->language->id]);
     }
