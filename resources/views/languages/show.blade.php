@@ -17,6 +17,7 @@
                     <div class="panel-body">
                         <p>{{ $language->short_description }}
                         </p>
+                        <p><em>Language Notes:</em> {{ $language->notes }}</p>
                     </div>
                 </div>
             </div>
@@ -33,7 +34,7 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <p>{{ $language->description->description }}</p>
+                        <p>{!! $description !!}</p>
                     </div>
                 </div>
             </div>
@@ -75,6 +76,8 @@
                                     @can('create', new \App\Word())
                                     <a href="{{action('WordsController@createForLanguage', ['id' => $language->id])}}"
                                        alt="Create a new word in {{$language->name}}" class="btn btn-sm btn-danger"><strong>Add Word</strong></a>
+                                    <a href="{{action('WordsController@createForLanguage', ['id' => $language->id, 'withDefinition' => true])}}"
+                                       alt="Create a new word in {{$language->name}}" class="btn btn-sm btn-danger"><strong>Define New Word</strong></a>
                                     @endcan
                                 </h3>
                             </div>
@@ -89,7 +92,7 @@
                         @if(count($words) < 1)
                             <p>Please add some words.</p>
                         @else
-                                @foreach($words->chunk((count($words)/3)+1) as $chunk)
+                                @foreach($words->chunk(ceil(count($words)/3.0)) as $chunk)
                                     <div class="col-lg-4">
                                     @foreach($chunk as $word)
                                     <ul>
@@ -140,7 +143,6 @@
                                 </div>
                             @endif
                         @endif
-                        <p><em>Notes:</em> {{ $language->notes }}</p>
                     </div>
                 </div>
         </div>
