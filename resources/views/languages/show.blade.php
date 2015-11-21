@@ -89,7 +89,7 @@
                         @if(count($words) < 1)
                             <p>Please add some words.</p>
                         @else
-                                @foreach($words->chunk(count($words)/3) as $chunk)
+                                @foreach($words->chunk((count($words)/3)+1) as $chunk)
                                     <div class="col-lg-4">
                                     @foreach($chunk as $word)
                                     <ul>
