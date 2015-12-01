@@ -39,4 +39,28 @@
     @else
         <p>Your search returned no definition results.</p>
     @endif
+    <h2>Result tags in {{$language->name}}:</h2>
+    @if(count($tag_results) > 0)
+        <ol>
+            @forelse($tag_results as $tag)
+                <li>{{$tag->name}}
+                    @if(count($tag->definitions))
+                        <ul>
+                           @foreach($tag->definitions as $definition)
+                                <li>
+                                    <a href="{{ action('DefinitionsController@show', $definition->id) }}">
+                                        {{$definition->word->ascii_string}} - {{$definition->definition_text}}
+                                    </a>
+                                </li>
+                           @endforeach
+                        </ul>
+                    @endif
+                </li>
+            @empty
+                <p>Empty result?</p>
+            @endforelse
+        </ol>
+    @else
+        <p>Your search returned no tag results.</p>
+    @endif
 @stop
