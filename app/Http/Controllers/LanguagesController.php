@@ -40,7 +40,8 @@ class LanguagesController extends Controller
             ->where('language_id', $language->id)
             ->where('definition_text', 'like', "%{$data['search-term']}%")
             ->get();
-        return view('search.results', compact('word_results', 'definition_results', 'language'));
+        $tag_results = $language->tags()->where('name', 'like', "%{$data['search-term']}%")->get();
+        return view('search.results', compact('word_results', 'definition_results', 'tag_results', 'language'));
     }
     /**
      * Display a listing of the resource.
