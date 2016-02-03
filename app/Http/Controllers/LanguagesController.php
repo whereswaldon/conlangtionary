@@ -25,6 +25,24 @@ class LanguagesController extends Controller
     }
 
     /**
+     * Sends the requestor to the generator form.
+     */
+    public function morphologicalGenerator($language_id) {
+        $language = Language::find($language_id);
+        $tags = $language->tags;
+        return view('generators.morphological', ['tags' => $tags, 'language' => $language]);
+    }
+
+    /**
+     * Do the work of generating definitions based upon the given patterns.
+     * @param Request $request
+     */
+    public function processMorphologicalGenerator(Request $request, $language_id) {
+        $language = Language::find($language_id);
+        dd($request);
+    }
+
+    /**
      * Look for the search term within the words and definitions of the given language.
      *
      * @param Request $request

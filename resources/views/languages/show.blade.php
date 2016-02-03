@@ -9,8 +9,10 @@
                         <h2>{{ $language->name }}
                             @can('edit', $language)
                             <a href="{{action('LanguagesController@edit', ['id' => $language->id])}}"
-                               alt="Edit {{$language->name}}"
+                               title="Edit {{$language->name}}"
                                class="btn btn-sm btn-success"><strong>Edit Language</strong></a>
+                            <a href="{{action('LanguagesController@morphologicalGenerator', ['language_id' => $language->id])}}"
+                               title="Generate Words" class="btn btn-default"><strong>Morphological Generator</strong></a>
                             @endcan
                         </h2>
                     </div>

@@ -21,6 +21,8 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+Route::get('languages/{language_id}/morphologicalGenerator', 'LanguagesController@morphologicalGenerator');
+Route::post('languages/{language_id}/morphologicalGenerator', 'LanguagesController@processMorphologicalGenerator');
 Route::get('languages/create-word/{id}/{withDefinition}', 'WordsController@createForLanguage');
 Route::get('languages/create-tag/{id}', 'TagsController@createForLanguage');
 Route::resource('languages', 'LanguagesController');
