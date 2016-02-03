@@ -23,7 +23,7 @@
                             <legend>Source</legend>
                             <div class="form-group">
                                 <label for="source_tags" class="control-label">Source Tags</label>
-                                <select multiple id="source_tags" class="form-control" name="source_tags">
+                                <select multiple id="source_tags" class="form-control" name="source_tags[]">
                                     @foreach($tags as $tag)
                                         <option value="{{$tag->id}}">{{$tag->name}}</option>
                                     @endforeach
@@ -43,7 +43,7 @@
                             <legend>Target</legend>
                             <div class="form-group">
                                 <label for="target_tags" class="control-label">Target Tags</label>
-                                <select multiple id="target_tags" class="form-control" name="target_tags">
+                                <select multiple id="target_tags" class="form-control" name="target_tags[]">
                                     @foreach($tags as $tag)
                                         <option value="{{$tag->id}}">{{$tag->name}}</option>
                                     @endforeach
