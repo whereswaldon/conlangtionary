@@ -38,8 +38,48 @@ class LanguagesController extends Controller
      * @param Request $request
      */
     public function processMorphologicalGenerator(Request $request, $language_id) {
+        $sourceTags = $request->source_tags;
+        $targetTags = $request->target_tags;
         $language = Language::find($language_id);
-        dd($request);
+        $targetWords = $language->words;
+        $finalTargets = [];
+        $finalDefinitions = [];
+        foreach($targetWords as $word) {
+            $targetDefinitions = $word->definitions->filter(function($item) use ($sourceTags) {
+                $tagIds = $item->tags->pluck('id')->toArray();
+                foreach($tagIds as $id) {
+                    if (! in_array($id, $tagIds)) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+            foreach($targetDefinitions as $definition) {
+                array_push($finalTargets, $definition);
+            }
+        }
+        foreach($finalTargets as $target) {
+            $newWord = preg_replace($request->source_pattern,
+                $request->target_pattern, $target->word->ascii_string);
+            $word = $language->words()->create(['ascii_string' => $newWord]);
+            $definition = $word->definitions()
+                ->create([
+                    'definition_text' => $target->definition_text,
+                    'definition_number' => 1
+                ]);
+            $definition->tags()->sync($targetTags);
+            array_push($finalDefinitions, $definition);
+        }
+        foreach($finalDefinitions as $definition) {
+            dump("GENERATED:");
+            dump($definition->word->ascii_string);
+            dump($definition->definition_text);
+            foreach($definition->tags as $tag) {
+                dump($tag->name);
+            }
+            dump("----------");
+        }
+        dd($finalDefinitions);
     }
 
     /**
