@@ -67,19 +67,22 @@ class LanguagesController extends Controller
                     'definition_text' => $target->definition_text,
                     'definition_number' => 1
                 ]);
+            $definition->generated = true;
             $definition->tags()->sync($targetTags);
+            $definition->save();
             array_push($finalDefinitions, $definition);
         }
-        foreach($finalDefinitions as $definition) {
-            dump("GENERATED:");
-            dump($definition->word->ascii_string);
-            dump($definition->definition_text);
-            foreach($definition->tags as $tag) {
-                dump($tag->name);
-            }
-            dump("----------");
-        }
-        dd($finalDefinitions);
+//        foreach($finalDefinitions as $definition) {
+//            dump("GENERATED:");
+//            dump($definition->word->ascii_string);
+//            dump($definition->definition_text);
+//            foreach($definition->tags as $tag) {
+//                dump($tag->name);
+//            }
+//            dump("----------");
+//        }
+//        dd($finalDefinitions);
+        return view('definitions.generated', compact('finalDefinitions'));
     }
 
     /**
