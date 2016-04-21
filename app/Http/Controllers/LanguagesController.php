@@ -38,50 +38,74 @@ class LanguagesController extends Controller
      * @param Request $request
      */
     public function processMorphologicalGenerator(Request $request, $language_id) {
+
+        //$sourceTags is the array of tag ids selected in the UI
         $sourceTags = $request->source_tags;
+        $sourceCount = count($sourceTags);
+
+        //$targetTags is the array of target tag ids selected in the UI
         $targetTags = $request->target_tags;
+
+        //The language that the generator is being run on
         $language = Language::find($language_id);
+
+        //Used to hold a working set of words in a given language
         $targetWords = $language->words;
+
+        //$finalTargets holds every definition found with the desired tags
         $finalTargets = [];
+
+        //$finalDefinitions ultimately holds all definitions created by the generator
         $finalDefinitions = [];
+
+        /**
+         * How this needs to work:
+         * for each definition in the language, find all ids of that definition's tags
+         * intersect those tags against the source tags
+         * if the count of the intersection is the same as the count of the source tags, keep that definition
+         */
         foreach($targetWords as $word) {
-            $targetDefinitions = $word->definitions->filter(function($item) use ($sourceTags) {
+            $targetDefinitions = $word->definitions->filter(function($item) use ($sourceTags, $sourceCount) {
                 $tagIds = $item->tags->pluck('id')->toArray();
-                foreach($tagIds as $id) {
-                    if (! in_array($id, $tagIds)) {
-                        return false;
-                    }
+                //if the intersection of the tags present on the definition and the desired tags is smaller
+                //than the number of desired tags, it lacks some of them.
+                if (count(array_intersect($sourceTags, $tagIds)) < $sourceCount) {
+                    return false;
                 }
+                //otherwise, we want this definition
                 return true;
             });
             foreach($targetDefinitions as $definition) {
                 array_push($finalTargets, $definition);
             }
         }
+        //dd($finalTargets);
         foreach($finalTargets as $target) {
-            $newWord = preg_replace($request->source_pattern,
-                $request->target_pattern, $target->word->ascii_string);
-            $word = $language->words()->create(['ascii_string' => $newWord]);
+            //generate the new word string with substitution
+            $newWord = preg_replace(
+                $request->source_pattern,
+                $request->target_pattern,
+                $target->word->ascii_string
+            );
+
+            //Check whether a word with this Ascii representation already exists. If so, use it.
+            $word = $language->words()->where('ascii_string', $newWord)->first();
+            if (! $word) {
+                $word = $language->words()->create(['ascii_string' => $newWord]);
+            }
+
+            //attach a new definition with the correct tags and text to that word
             $definition = $word->definitions()
                 ->create([
                     'definition_text' => $target->definition_text,
-                    'definition_number' => 1
+                    'definition_number' => 1,
                 ]);
             $definition->generated = true;
             $definition->tags()->sync($targetTags);
             $definition->save();
             array_push($finalDefinitions, $definition);
         }
-//        foreach($finalDefinitions as $definition) {
-//            dump("GENERATED:");
-//            dump($definition->word->ascii_string);
-//            dump($definition->definition_text);
-//            foreach($definition->tags as $tag) {
-//                dump($tag->name);
-//            }
-//            dump("----------");
-//        }
-//        dd($finalDefinitions);
+
         return view('definitions.generated', compact('finalDefinitions'));
     }
 
